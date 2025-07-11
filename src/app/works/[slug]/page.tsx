@@ -2,7 +2,6 @@
 // このファイルは、各制作物の詳細ページを動的に表示するためのものです。
 
 import Link from 'next/link'; // ページ間を移動するためのNext.jsのLinkコンポーネントをインポート
-import { Metadata } from 'next'; // 必要に応じてMetadataをインポート（今回は直接は使わないが、ページプロップスの型定義で参照される可能性を考慮）
 
 // Next.jsのページコンポーネントが受け取るプロップスの型を定義します。
 // App Routerでは、params と searchParams を含む PageProps 型が使用されます。
