@@ -25,7 +25,7 @@ export default async function WorkDetailPage({ params }: { params: { slug: strin
         <div className="relative mb-4" style={{ paddingBottom: '56.25%', height: 0 }}>
           <iframe
             className="absolute top-0 left-0 w-full h-full rounded-md"
-            src="https://www.youtube.com/watch?v=18c3iPdc72o"
+            src="https://www.youtube.com/embed/18c3iPdc72o"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
             title="YouTube video player"
