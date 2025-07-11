@@ -1,32 +1,7 @@
-// src/app/works/[slug]/page.tsx
-// このファイルは、各制作物の詳細ページを動的に表示するためのものです。
-
-import Link from 'next/link'; // ページ間を移動するためのNext.jsのLinkコンポーネントをインポート
-
-// Next.jsのページコンポーネントが受け取るプロップスの型を定義します。
-// App Routerでは、params と searchParams を含む PageProps 型が使用されます。
-// ここではparamsのみを使用するため、Partial<PageProps> とすることで柔軟性を持たせつつ、
-// paramsの型を明示的に指定します。
-interface WorkDetailPageProps {
-  params: {
-    slug: string; // URLの [slug] の部分がここに渡されます
-  };
-  // searchParams はURLのクエリパラメータ（例: ?key=value）を扱う場合に使用しますが、
-  // 今回は使用しないため、含めなくても問題ありません。
-  // searchParams?: { [key: string]: string | string[] | undefined };
-}
-
-// WorkDetailPage コンポーネントの定義
-// Next.jsのApp Routerでは、動的ルートのセグメント（例: [slug]）は
-// 'params' プロップスとしてコンポーネントに渡されます。
-export default function WorkDetailPage({ params }: WorkDetailPageProps) {
-  // params.slug の値は、アクセスされたURLの [slug] の部分になります。
-  // 例: /works/my-first-design にアクセスした場合、params.slug は "my-first-design" となります。
-  // 実際には、このslugを使って、データベースやAPIから該当する作品の詳細データを取得します。
+import Link from 'next/link';
+export default function WorkDetailPage({ params }: { params: { slug: string } }) {
 
   return (
-    // main要素でページの主要コンテンツを囲みます。
-    // Tailwind CSSのクラスを使って、コンテナの幅、パディング、最小の高さを設定し、中央に配置します。
     <main className="container mx-auto p-8 min-h-screen">
       {/* ページタイトル: 現在の作品のslugを表示 */}
       <h1 className="text-4xl font-bold mb-8 text-center text-gray-800">作品: {params.slug}</h1>
@@ -54,7 +29,6 @@ export default function WorkDetailPage({ params }: WorkDetailPageProps) {
           <iframe
             className="absolute top-0 left-0 w-full h-full rounded-md"
             src="https://www.youtube.com/embed/YOUR_VIDEO_ID" // ここを実際のYouTube動画IDに置き換えてください
-            frameBorder="0"
             // 'allow' 属性は、埋め込みコンテンツが特定の機能を実行することを許可します。
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen // フルスクリーン表示を許可
