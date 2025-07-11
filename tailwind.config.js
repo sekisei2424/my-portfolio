@@ -1,9 +1,16 @@
+// tailwind.config.js
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: [],
+  content: [
+    "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/app/**/*.{js,ts,jsx,tsx,mdx}", // appディレクトリ全体を対象に含める
+  ],
   theme: {
-    extend: {},
+    extend: {
+      // テーマの拡張
+    },
   },
   plugins: [],
 }
-
