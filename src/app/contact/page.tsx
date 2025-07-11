@@ -60,7 +60,7 @@ export default function ContactPage() {
         setStatus('error');
       }
     } catch (error) {
-      setErrorMessage('ネットワークエラーが発生しました。');
+      setErrorMessage(`ネットワークエラーが発生しました: ${error instanceof Error ? error.message : '不明なエラー'}`);
       setStatus('error');
     }
   };
