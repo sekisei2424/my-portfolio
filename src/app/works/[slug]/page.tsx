@@ -1,7 +1,21 @@
-import Link from 'next/link';
-export default function WorkDetailPage({ params }: { params: { slug: string } }) {
+// src/app/works/[slug]/page.tsx
+// このファイルは、各制作物の詳細ページを動的に表示するためのものです。
+
+import Link from 'next/link'; // ページ間を移動するためのNext.jsのLinkコンポーネントをインポート
+
+// WorkDetailPage コンポーネントの定義
+// params プロップスの型をインラインで直接定義します。
+// Next.jsのApp Routerでは、ページコンポーネントをasync関数として定義することが一般的です。
+// これにより、型チェックの期待値と合致しやすくなります。
+export default async function WorkDetailPage({ params }: { params: { slug: string } }) {
+  // params.slug の値は、アクセスされたURLの [slug] の部分になります。
+  // 例: /works/my-first-design にアクセスした場合、params.slug は "my-first-design" となります。
+  // 実際には、このslugを使って、データベースやAPIから該当する作品の詳細データを非同期で取得します。
+  // 例: const workData = await fetch(`/api/works/${params.slug}`).then(res => res.json());
 
   return (
+    // main要素でページの主要コンテンツを囲みます。
+    // Tailwind CSSのクラスを使って、コンテナの幅、パディング、最小の高さを設定し、中央に配置します。
     <main className="container mx-auto p-8 min-h-screen">
       {/* ページタイトル: 現在の作品のslugを表示 */}
       <h1 className="text-4xl font-bold mb-8 text-center text-gray-800">作品: {params.slug}</h1>
@@ -29,6 +43,7 @@ export default function WorkDetailPage({ params }: { params: { slug: string } })
           <iframe
             className="absolute top-0 left-0 w-full h-full rounded-md"
             src="https://www.youtube.com/embed/YOUR_VIDEO_ID" // ここを実際のYouTube動画IDに置き換えてください
+            frameBorder="0"
             // 'allow' 属性は、埋め込みコンテンツが特定の機能を実行することを許可します。
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen // フルスクリーン表示を許可
