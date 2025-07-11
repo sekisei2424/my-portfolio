@@ -1,6 +1,6 @@
 // src/app/works/page.tsx
 import Link from 'next/link';
-import Image from 'next/image'; // Imageコンポーネントをインポート
+// import Image from 'next/image';
 
 export default function WorksPage() {
   return (

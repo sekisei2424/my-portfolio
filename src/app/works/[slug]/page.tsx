@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import Image from 'next/image';
+// import Image from 'next/image';
 export default async function WorkDetailPage({ params }: { params: { slug: string } }) {
   return (
     <main className="container mx-auto p-8 min-h-screen">
