@@ -2,12 +2,19 @@
 // このファイルは、各制作物の詳細ページを動的に表示するためのものです。
 
 import Link from 'next/link'; // ページ間を移動するためのNext.jsのLinkコンポーネントをインポート
+import Image from 'next/image'; // 画像最適化のためのNext.jsのImageコンポーネントをインポート
+
+// Next.jsのApp Routerのページコンポーネントが受け取るプロップスの標準的な型を定義します。
+// これには params と searchParams の両方が含まれます。
+// これにより、Next.jsの内部的な PageProps の型制約を確実に満たします。
+type WorkDetailPageProps = {
+  params: { slug: string }; // URLの [slug] の部分
+  searchParams?: { [key: string]: string | string[] | undefined }; // URLのクエリパラメータ（例: ?key=value）
+};
 
 // WorkDetailPage コンポーネントの定義
-// params プロップスの型をインラインで直接定義します。
-// Next.jsのApp Routerでは、ページコンポーネントをasync関数として定義することが一般的です。
-// これにより、型チェックの期待値と合致しやすくなります。
-export default async function WorkDetailPage({ params }: { params: { slug: string } }) {
+// async 関数として定義することで、Next.jsのサーバーコンポーネントとしての型推論と合致させます。
+export default async function WorkDetailPage({ params }: WorkDetailPageProps) {
   // params.slug の値は、アクセスされたURLの [slug] の部分になります。
   // 例: /works/my-first-design にアクセスした場合、params.slug は "my-first-design" となります。
   // 実際には、このslugを使って、データベースやAPIから該当する作品の詳細データを非同期で取得します。
@@ -26,16 +33,21 @@ export default async function WorkDetailPage({ params }: { params: { slug: strin
         <h2 className="text-3xl font-semibold mb-4 text-gray-800">素晴らしい作品の詳細</h2>
 
         {/* 作品のメイン画像を表示するセクション */}
-        {/* 'src' は仮のプレースホルダー画像です。実際にはあなたの作品の画像URLに置き換えてください。 */}
-        {/* Tailwind CSSで画像の幅、高さ、オブジェクトフィット、角丸を設定します。 */}
-        <img
-          src="/placeholder-large.png" // あなたの作品の画像URLに置き換えてください
-          alt="詳細画像"
-          className="w-full object-cover rounded-md mb-4"
-          // Next.jsのImageコンポーネントを使用すると、画像最適化が自動で行われます。
-          // その場合は、width, height, priorityなどのプロパティが必要になります。
-          // 例: <Image src="/your-work-image.jpg" alt="詳細画像" width={800} height={450} layout="responsive" className="rounded-md mb-4" />
-        />
+        {/* <img>タグを<Image>コンポーネントに置き換えます。 */}
+        {/* Next.jsのImageコンポーネントは、widthとheightプロパティが必須です。 */}
+        {/* layout="responsive" は非推奨になったため、fillやサイズ指定のclassを使用します。 */}
+        {/* ここでは固定のサイズ例としてwidthとheightを指定します。実際の画像サイズに合わせて調整してください。 */}
+        <div className="relative w-full h-96 mb-4 rounded-md overflow-hidden"> {/* 画像を囲むコンテナ */}
+          <Image
+            src="/placeholder-large.png" // あなたの作品の画像URLに置き換えてください
+            alt="詳細画像"
+            fill // 親要素のサイズに合わせて画像を埋める
+            style={{ objectFit: 'cover' }} // 画像がコンテナに収まるように調整
+            priority // LCP（Largest Contentful Paint）改善のため、優先的に読み込む
+            className="rounded-md" // 角丸を適用
+          />
+        </div>
+
 
         {/* YouTube動画の埋め込みセクション */}
         {/* 'relative' と 'paddingBottom' を使って、動画のアスペクト比を維持します。 */}
@@ -43,8 +55,6 @@ export default async function WorkDetailPage({ params }: { params: { slug: strin
           <iframe
             className="absolute top-0 left-0 w-full h-full rounded-md"
             src="https://www.youtube.com/embed/YOUR_VIDEO_ID" // ここを実際のYouTube動画IDに置き換えてください
-            frameBorder="0"
-            // 'allow' 属性は、埋め込みコンテンツが特定の機能を実行することを許可します。
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen // フルスクリーン表示を許可
             title="YouTube video player" // アクセシビリティのためのタイトル
