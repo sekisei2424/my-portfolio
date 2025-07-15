@@ -7,8 +7,8 @@ import Footer from '../components/Footer';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'あなたの名前のポートフォリオ',
-  description: 'あなたのデザイン/開発ポートフォリオサイト',
+  title: 'セキセイ-Portfolio',
+  description: 'Design, Frontend engineering',
 };
 
 export default function RootLayout({
